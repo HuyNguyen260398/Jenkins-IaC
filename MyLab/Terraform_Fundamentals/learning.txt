@@ -1,0 +1,155 @@
+## TERRAFORM CONFIGURATION SYNTAX ##
+
+// ==============================================================================================================================================================
+
+# 1. Comments
+
+# a) Single-line comment begin with "#" and finish at the end of the line
+
+# b) You can also chose to use "//" instead of "#"
+
+# c) Multiline comments can start "/*" and end with "*/"
+
+# This is single line comment
+
+// This is also used for single line comment
+
+/* This is to begin a multiline comment
+This is the second line
+This is the third line
+This is the end of comment */
+
+// ==============================================================================================================================================================
+
+# 2. Syntax constructs - arguments
+
+/*
+a) An argument assign a value to a particular name
+
+b) The identifier before the equals sign is the argument name, and the expression after the equals sign is the argument's value
+*/
+
+MyName = "Huy"
+
+// ==============================================================================================================================================================
+
+# 3. Syntax constructs - Blocks
+
+/*
+a) A block is a container
+
+b) It contains some content
+
+c) A block will have a TYPE - resource, input variables, output values, data source, etc.
+
+d) Labels are followed by TYPE
+
+e) A block is delimeted by { }
+*/
+
+resource "aws_instance" "terraform_lab_instance" {
+  region = "us-east-1"
+  ami = "1234567890"
+}
+
+/* Block type: resource
+Labels: "aws_instance", "terraform_lab_instance"
+Contained arguments: region, ami */
+
+// ==============================================================================================================================================================
+
+# 4. Identifiers
+
+/*
+a) Block TYPE name
+
+b) Names of an argument
+
+c) Names of resources, input variables, output values etc. are all know as Identifiers
+
+d) Identifiers can contain letters, digits, underscores (_) and hyphens (-)
+
+e) The first character of an identifier must not e a digit
+*/
+
+resource "aws_instance" "terraform_lab_instance" {
+  region = "us-east-1"
+  ami = "1234567890"
+}
+
+variable "instance_type" {
+  type = string
+  default = "t2.medium"
+}
+
+output "instance_id" {
+  value = aws_instance.terraform_lab_instance.id
+}
+
+// ==============================================================================================================================================================
+
+# 5. Resources
+
+// DATA CENTER on AWS -> VPC -> SUBNETS -> INSTANCES
+
+/*
+a) Resource plays an important role in Terraform
+
+b) Resources are described using blocks, as a Resource block
+   We can describe one or more infrastructure objects using Resource blocks.
+   The Infrastructure objects can be virtual networks, compute instances, etc.
+   Ex: asw_vpc, aws_subnet, aws_instance, aws_eip, etc
+
+c) A resource block declares a resource of a give type
+
+d) A resource will have a TYPE like aws_instance, aws_vpc, etc.
+   Resource TYPE determinesthe kind of infrastructure object it manages
+   and what arguments and other attributes the resource supports.
+
+e) The resource type and name together serve as an identifier for a given resource
+*/
+
+resource "aws_instance" "terraform_lab_instance" {
+  // configuration arguments, these depend on the resource type
+  region = "us-east-1"
+  ami = "1234567890"
+}
+
+// ==============================================================================================================================================================
+
+# 6. Providers
+
+/*
+a) Terraform used plugins called "providers" to interact with real world.
+
+b) You must declare which provider you may require in the terraform configuration file.
+
+c) Terraform then installs and uses these provider plugins.
+
+d) Provider adds a set of resource_types or data sources that terraform can manage.
+
+e) Every resource_type is implemented by a provider.
+
+f) With out provider Terraform will be unable to manage your infrastructure.
+
+g) Terraform registry (main directory of pulicly available Terraform providers) has the list of available providers (https://registry.terraform.io/browse/providers)
+*/
+
+# Provider Requirement: how to declare providers so Terraform can install them
+
+terraform {
+  required_providers {
+    asw = {
+      source = "hashicorp/aws" # Shortcut of https://registry.terraform.io/providers/hashicorp/aws/latest
+      version = "~>3.0"
+    }
+  }
+}
+
+# Provider Configuration: configure the AWS Provider
+provider "aws" {
+  // configuration arguments for the provider
+  region = "us-east-1"
+  access_key = "my-access-key"
+  secret_key = "my-secret-key"
+}
