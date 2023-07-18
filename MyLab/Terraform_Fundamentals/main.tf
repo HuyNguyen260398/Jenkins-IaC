@@ -13,22 +13,17 @@ terraform {
 
 provider "aws" {
   region = "ap-southeast-1"
-  access_key = "AKIAQE2WXIOJC57EH6UF"
-  secret_key = "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"
 }
 
-# Provision VPC resource
+# Import modules
 
-resource "aws_vpc" "Terraform-VPC" {
-  cidr_block = var.cidr
+module "vpc" {
+  source                        = "./modules/VPC"
+  cidr_block_from_variable_file = var.cidr
+}
 
-  tags = {
-    Name = "Terraform-VPC"
-    VPC_Name = var.vpc_name
-    VPC_Exists = var.vpc_exists
-    VPC_List = var.vpc_list[0]
-    VPC_Map = var.vpc_map["Key1"]
-    VPC_Tuple = var.vpc_tuple[1]
-    VPC_Object = var.vpc_object["Key2"]
-  }
+module "subnet" {
+  source                         = "./modules/Subnet"
+  vpc_id_from_vpc_module = module.vpc.vpc_id_from_vpc_module
+  cidr_subnet_from_variable_file = var.cidr_subnet1
 }

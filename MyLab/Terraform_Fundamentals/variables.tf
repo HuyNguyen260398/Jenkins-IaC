@@ -1,50 +1,54 @@
 variable "cidr" {
-  // arguments
   type        = string
-  description = "This is a variable"
+  description = "This is a variable which has value for Terraform-VPC cidr range"
 }
 
-# String
-
-variable "vpc_name" {
-  type = string
+variable "cidr_subnet1" {
+  type        = string
+  description = "This is a variable which has value for Terraform-Subnet1"
 }
 
-# Number
+# # String
 
-variable "vpc_number" {
-  type = number
-}
+# variable "vpc_name" {
+#   type = string
+# }
 
-# Boolean
+# # Number
 
-variable "vpc_exists" {
-  type = bool
-}
+# variable "vpc_number" {
+#   type = number
+# }
 
-# List
+# # Boolean
 
-variable "vpc_list" {
-  type = list(string)
-}
+# variable "vpc_exists" {
+#   type = bool
+# }
 
-# Tupple
+# # List
 
-variable "vpc_tuple" {
-  type = tuple([string, number, string])
-}
+# variable "vpc_list" {
+#   type = list(string)
+# }
 
-# Map
+# # Tupple
 
-variable "vpc_map" {
-  type = map(any)
-}
+# variable "vpc_tuple" {
+#   type = tuple([string, number, string])
+# }
 
-# Object
+# # Map
 
-variable "vpc_object" {
-  type = object({
-    Key1 = string,
-    Key2 = number
-  })
-}
+# variable "vpc_map" {
+#   type = map(any)
+# }
+
+# # Object
+
+# variable "vpc_object" {
+#   type = object({
+#     Key1 = string,
+#     Key2 = number
+#   })
+# }
