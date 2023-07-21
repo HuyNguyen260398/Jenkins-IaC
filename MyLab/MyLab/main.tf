@@ -95,15 +95,17 @@ resource "aws_route_table_association" "MyLab-Assn" {
 }
 
 # Create an AWS EC2 Instance
-resource "aws_instance" "DemoResource" {
+
+resource "aws_instance" "Jenkins" {
   ami           = var.ami
   instance_type = var.instance_type
   key_name = "EC2"
   vpc_security_group_ids = [aws_security_group.MyLab-Sec-Group.id]
   subnet_id = aws_subnet.MyLab-Subnet1.id
   associate_public_ip_address = true
+  user_data = file("./InstallJenkins.sh")
 
   tags = {
-    Name = "DemoInstance"
+    Name = "Jenkins-Server"
   }
 }
