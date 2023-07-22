@@ -141,3 +141,19 @@ resource "aws_instance" "Ansible-Manage-Node-1" {
     Name = "Ansible-Manage-Node-Apache-Tomcat"
   }
 }
+
+# Create an AWS EC2 Instance (Ansible Manage node 2) to host Docker
+
+resource "aws_instance" "Ansible-Manage-Node-2" {
+  ami           = var.ami
+  instance_type = var.instance_type
+  key_name = "EC2"
+  vpc_security_group_ids = [aws_security_group.MyLab-Sec-Group.id]
+  subnet_id = aws_subnet.MyLab-Subnet1.id
+  associate_public_ip_address = true
+  user_data = file("./Docker.sh")
+
+  tags = {
+    Name = "Ansible-Manage-Node-Docker"
+  }
+}
