@@ -10,7 +10,7 @@ variable "ports" {
 
 variable "ami" {
   type = string
-  default = "ami-0b94777c7d8bfe7e3"
+  default = "ami-06b79cf2aee0d5c92"
 }
 
 variable "instance_type" {

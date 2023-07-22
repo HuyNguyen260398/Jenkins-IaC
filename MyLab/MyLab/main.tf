@@ -94,7 +94,7 @@ resource "aws_route_table_association" "MyLab-Assn" {
   route_table_id = aws_route_table.MyLab-RouteTable.id
 }
 
-# Create an AWS EC2 Instance
+# Create an AWS EC2 Instance for Jenkins
 
 resource "aws_instance" "Jenkins" {
   ami           = var.ami
@@ -107,5 +107,37 @@ resource "aws_instance" "Jenkins" {
 
   tags = {
     Name = "Jenkins-Server"
+  }
+}
+
+# Create an AWS EC2 Instance to host Ansible Controller (Control node)
+
+resource "aws_instance" "Ansible-Controller" {
+  ami           = var.ami
+  instance_type = var.instance_type
+  key_name = "EC2"
+  vpc_security_group_ids = [aws_security_group.MyLab-Sec-Group.id]
+  subnet_id = aws_subnet.MyLab-Subnet1.id
+  associate_public_ip_address = true
+  user_data = file("./InstallAnsibleCN.sh")
+
+  tags = {
+    Name = "Ansible-Control-Node"
+  }
+}
+
+# Create an AWS EC2 Instance (Ansible Manage node 1) to host Apache Tomcat server
+
+resource "aws_instance" "Ansible-Manage-Node-1" {
+  ami           = var.ami
+  instance_type = var.instance_type
+  key_name = "EC2"
+  vpc_security_group_ids = [aws_security_group.MyLab-Sec-Group.id]
+  subnet_id = aws_subnet.MyLab-Subnet1.id
+  associate_public_ip_address = true
+  user_data = file("./AnsibleManagedNode.sh")
+
+  tags = {
+    Name = "Ansible-Manage-Node-Apache-Tomcat"
   }
 }
