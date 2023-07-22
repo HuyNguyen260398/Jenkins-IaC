@@ -157,3 +157,19 @@ resource "aws_instance" "Ansible-Manage-Node-2" {
     Name = "Ansible-Manage-Node-Docker"
   }
 }
+
+# Create an AWS EC2 Instance to host Sonatype Nexus
+
+resource "aws_instance" "Nexus" {
+  ami           = var.ami
+  instance_type = var.instance_type_for_nexus
+  key_name = "EC2"
+  vpc_security_group_ids = [aws_security_group.MyLab-Sec-Group.id]
+  subnet_id = aws_subnet.MyLab-Subnet1.id
+  associate_public_ip_address = true
+  user_data = file("./InstallNexus.sh")
+
+  tags = {
+    Name = "Nexus-Server"
+  }
+}
