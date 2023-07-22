@@ -96,80 +96,80 @@ resource "aws_route_table_association" "MyLab-Assn" {
 
 # Create an AWS EC2 Instance for Jenkins
 
-resource "aws_instance" "Jenkins" {
-  ami           = var.ami
-  instance_type = var.instance_type
-  key_name = "EC2"
-  vpc_security_group_ids = [aws_security_group.MyLab-Sec-Group.id]
-  subnet_id = aws_subnet.MyLab-Subnet1.id
-  associate_public_ip_address = true
-  user_data = file("./InstallJenkins.sh")
+# resource "aws_instance" "Jenkins" {
+#   ami           = var.ami
+#   instance_type = var.instance_type
+#   key_name = "EC2"
+#   vpc_security_group_ids = [aws_security_group.MyLab-Sec-Group.id]
+#   subnet_id = aws_subnet.MyLab-Subnet1.id
+#   associate_public_ip_address = true
+#   user_data = file("./InstallJenkins.sh")
 
-  tags = {
-    Name = "Jenkins-Server"
-  }
-}
+#   tags = {
+#     Name = "Jenkins-Server"
+#   }
+# }
 
 # Create an AWS EC2 Instance to host Ansible Controller (Control node)
 
-resource "aws_instance" "Ansible-Controller" {
-  ami           = var.ami
-  instance_type = var.instance_type
-  key_name = "EC2"
-  vpc_security_group_ids = [aws_security_group.MyLab-Sec-Group.id]
-  subnet_id = aws_subnet.MyLab-Subnet1.id
-  associate_public_ip_address = true
-  user_data = file("./InstallAnsibleCN.sh")
+# resource "aws_instance" "Ansible-Controller" {
+#   ami           = var.ami
+#   instance_type = var.instance_type
+#   key_name = "EC2"
+#   vpc_security_group_ids = [aws_security_group.MyLab-Sec-Group.id]
+#   subnet_id = aws_subnet.MyLab-Subnet1.id
+#   associate_public_ip_address = true
+#   user_data = file("./InstallAnsibleCN.sh")
 
-  tags = {
-    Name = "Ansible-Control-Node"
-  }
-}
+#   tags = {
+#     Name = "Ansible-Control-Node"
+#   }
+# }
 
 # Create an AWS EC2 Instance (Ansible Manage node 1) to host Apache Tomcat server
 
-resource "aws_instance" "Ansible-Manage-Node-1" {
-  ami           = var.ami
-  instance_type = var.instance_type
-  key_name = "EC2"
-  vpc_security_group_ids = [aws_security_group.MyLab-Sec-Group.id]
-  subnet_id = aws_subnet.MyLab-Subnet1.id
-  associate_public_ip_address = true
-  user_data = file("./AnsibleManagedNode.sh")
+# resource "aws_instance" "Ansible-Manage-Node-1" {
+#   ami           = var.ami
+#   instance_type = var.instance_type
+#   key_name = "EC2"
+#   vpc_security_group_ids = [aws_security_group.MyLab-Sec-Group.id]
+#   subnet_id = aws_subnet.MyLab-Subnet1.id
+#   associate_public_ip_address = true
+#   user_data = file("./AnsibleManagedNode.sh")
 
-  tags = {
-    Name = "Ansible-Manage-Node-Apache-Tomcat"
-  }
-}
+#   tags = {
+#     Name = "Ansible-Manage-Node-Apache-Tomcat"
+#   }
+# }
 
 # Create an AWS EC2 Instance (Ansible Manage node 2) to host Docker
 
-resource "aws_instance" "Ansible-Manage-Node-2" {
-  ami           = var.ami
-  instance_type = var.instance_type
-  key_name = "EC2"
-  vpc_security_group_ids = [aws_security_group.MyLab-Sec-Group.id]
-  subnet_id = aws_subnet.MyLab-Subnet1.id
-  associate_public_ip_address = true
-  user_data = file("./Docker.sh")
+# resource "aws_instance" "Ansible-Manage-Node-2" {
+#   ami           = var.ami
+#   instance_type = var.instance_type
+#   key_name = "EC2"
+#   vpc_security_group_ids = [aws_security_group.MyLab-Sec-Group.id]
+#   subnet_id = aws_subnet.MyLab-Subnet1.id
+#   associate_public_ip_address = true
+#   user_data = file("./Docker.sh")
 
-  tags = {
-    Name = "Ansible-Manage-Node-Docker"
-  }
-}
+#   tags = {
+#     Name = "Ansible-Manage-Node-Docker"
+#   }
+# }
 
 # Create an AWS EC2 Instance to host Sonatype Nexus
 
-resource "aws_instance" "Nexus" {
-  ami           = var.ami
-  instance_type = var.instance_type_for_nexus
-  key_name = "EC2"
-  vpc_security_group_ids = [aws_security_group.MyLab-Sec-Group.id]
-  subnet_id = aws_subnet.MyLab-Subnet1.id
-  associate_public_ip_address = true
-  user_data = file("./InstallNexus.sh")
+# resource "aws_instance" "Nexus" {
+#   ami           = var.ami
+#   instance_type = var.instance_type_for_nexus
+#   key_name = "EC2"
+#   vpc_security_group_ids = [aws_security_group.MyLab-Sec-Group.id]
+#   subnet_id = aws_subnet.MyLab-Subnet1.id
+#   associate_public_ip_address = true
+#   user_data = file("./InstallNexus.sh")
 
-  tags = {
-    Name = "Nexus-Server"
-  }
-}
+#   tags = {
+#     Name = "Nexus-Server"
+#   }
+# }
